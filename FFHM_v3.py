@@ -5,8 +5,7 @@
 # c(1), ..., c(n-1), c(n)]--that is, f_hats is a 1xM array of lists, each of which has length
 # N=2n+1. If the boolean 'extras' is set to True, returns a pair [eigs, mu_vals] instead of just
 # the eigenvalues. This is useful for plotting a 'Im(lambda) vs. mu' diagram, as in the article
-# by Deconinck & Nivala. My thanks goes to Professors Bernard Deconinck and J. Nathan Kutz of
-# the University of Washington for developing this powerful algorithm.
+# by Deconinck & Nivala. Credits to Professors Bernard Deconinck and J. Nathan Kutz for
 
 import numpy as np
 
