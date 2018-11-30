@@ -1,0 +1,6 @@
+# ignore LaTeX files that aren't .tex. This means you need to recompile the
+# .pdf each time.
+*.aux
+*.fls
+*.log
+*.fdb_latexmk
