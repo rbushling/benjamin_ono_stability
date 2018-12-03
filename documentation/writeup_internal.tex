@@ -24,4 +24,101 @@ Seattle, WA 98195, USA}
 
 \maketitle
 
+We consider the Benjamin-Ono equation
+\begin{align}
+  u_t + \mathcal{H}u_{xx} + (u^2)_x &=0,\label{eqn:BO}
+\end{align}
+where
+\begin{align}
+  \cH \lt[f(\xi)\rt](x) &= \frac1\pi \int \frac{f(\xi)}{\xi - x}~\d \xi.
+\end{align}
+Letting 
+\begin{align}
+  u &= \alpha \hat u, \qquad \hat x = \beta x, \qquad \hat t = \gamma t,
+\end{align}
+\eqref{eqn:BO} becomes
+\begin{align}
+  \gamma \hat u_{\hat t} + \beta^2 \cH [\hat u_{\hat x \hat x}] + \alpha \beta
+  (\hat u^2)_{\hat x} &= 0.
+\end{align}
+Letting $(z,\tau) = (x-ct, t)$, so that $z$ is in the traveling frame,
+\eqref{eqn:BO} becomes
+\begin{align}
+  u_\tau - cu_z + \cH u_{zz} + (u^2)_z &=0.
+\end{align}
+We look for stationary solutions in this traveling frame
+\begin{align}
+  -c u_z + \cH u_{zz} + (u^2)_z &=0. \label{eqn:BOStationaryTraveling}
+\end{align}
+A 3-parameter family of periodic solutions to \eqref{eqn:BOStationaryTraveling}
+is \cite{bronski2016modulational} given by
+\begin{align}
+  u(z; a, k, c) &=
+  -\frac{\frac{k^2}{\sqrt{c^2-4a-k^2}}}{\sqrt{\frac{c^2-4a}{c^2-4a-k^2}} -
+  \cos(kz)} - \frac12 \lt(\sqrt{c^2-4a}+c\rt),
+\end{align}
+where $c<0$ and $k^2<c^2-4a$.  We now verify that this is indeed a solution. We
+first note that \cite{ono1975}
+\begin{align}
+	\cH \lt(\frac{1}{1-B\cos(D\zeta)}\rt) &= \sgn(D) \frac{B
+	\sin(D\zeta)}{\sqrt{1-B^2}(1-B\cos(D\zeta))},
+\end{align}
+and our solution may be rewritten
+\begin{align}
+   u(z;a,k,c) &= -\frac{k^2}{\sqrt{c^2-4a-k^2}} \sqrt{\frac{c^2-4a-k^2}{c^2-4a}}
+   \frac{1}{ 1 - \sqrt{\frac{c^2-4a-k^2}{c^2-4a}}\cos(kz)} + \frac12
+   \lt(\sqrt{c^2-4a}+c\rt)\\
+   &= -\frac{k^2}{\sqrt{c^2-4a}}
+   \frac{1}{ 1 - \sqrt{\frac{c^2-4a-k^2}{c^2-4a}}\cos(kz)} + \frac12
+   \lt(\sqrt{c^2-4a}+c\rt)\\
+   &= -\frac{k^2}{\alpha}\frac{1}{1-\frac{\beta}{\alpha}\cos(kz)} + \frac12(\alpha + c)\\
+   &= -\frac{k^2}{\alpha}\frac{1}{1-B \cos (k\zeta)} + \frac12( \alpha + c).
+   \label{eqn:soln}
+\end{align}
+We then note that
+\begin{align}
+  \cH u_{zz} &= \cH\lt( -\partial_z^2 \lt(\frac{k^2}{\alpha}
+  \frac{1}{1-B\cos(k\zeta)} + \frac12(\alpha +c)\rt)\rt)\\
+  &= \cH\lt(- \partial_z^2 \lt(\frac{k^2}{\alpha}
+  \frac{1}{1-B\cos(k\zeta)}\rt) \rt)\\
+  &=-\frac{k^2}{\alpha} \partial_z^2 \cH\lt( 
+  \frac{1}{1-B\cos(k\zeta)}\rt),
+\end{align}
+since two derivatives commute with the Hilbert transform. Therefore
+\begin{align}
+  \cH u_{zz} &= -\frac{k^2}{\alpha}\partial_z^2 \sgn(k) \frac{B
+  \sin(k\zeta)}{\sqrt{1-B^2}(1-B \cos(k\zeta))}\\
+  &= -\frac{k^2}{\alpha} \partial_z^2 \frac{ \beta \sgn(k)\sin(k\zeta)}{\alpha
+  \sqrt{1-\beta^2/\alpha^2}(1-\beta \cos(k\zeta)/\alpha)}\\
+  &= -\partial_z^2 \frac{k^2 \beta \sgn(k)\sin(k\zeta)}{\alpha\sqrt{\alpha^2-\beta^2}(1-\beta
+  \cos(k\zeta)/\alpha)}.
+\end{align}
+But 
+\begin{align}
+  \alpha^2 -\beta^2 &= c^2 -4a - (c^2-4a-k^2) = k^2,
+\end{align}
+so that
+\begin{align}
+    \cH u_{zz} &= -\partial_z^2 \frac{k^2 \beta \sgn(k)\sin(k\zeta)}{\alpha
+    k(1-\beta \cos(k\zeta)/\alpha)}\\
+    &= -\partial_z^2 \frac{\beta k \sgn(k)\sin(k\zeta)}{\alpha - \beta \cos(k\zeta)}.
+\end{align}
+Then the Mathematica notebook \verb+BronskiAndHurChecks-2.nb+ shows that
+\eqref{eqn:soln} is indeed a solution of \eqref{eqn:BO} and
+\eqref{eqn:BOStationaryTraveling}.
+
+
+\section{Fourier multiplier of the Hilbert Transform}
+According to Wikipedia, the Fourier multiplier of $\cH$ is $i\sign(\omega)$
+(note that the sign of the denominator in $\cH$ is different in their definition
+than ours), so that
+\begin{align}
+  \cF[ \cH[u]](\omega) &= i\sign(\omega) \cF[u](\omega).
+\end{align}
+
+
+{\footnotesize
+\bibliographystyle{siam}
+\bibliography{mybib}}
+
 \end{document}
