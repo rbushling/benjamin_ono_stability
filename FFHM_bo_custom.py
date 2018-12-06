@@ -25,7 +25,7 @@ def FFHM(L, D, f_hats, extras=False):
     for mu in frange(-np.pi/L, np.pi/L, 2*np.pi/(L*D)):
         f_hats_copy = np.array(f_hats, dtype=np.complex_)
         f_hats_copy[0,:] *= 1j * np.sign(mu)          # np.sign([mu + 2*np.pi*j/L for j in range(0,N)])
-        print('mu = ' + str(np.round(mu,3)))
+        #print('mu = ' + str(np.round(mu,3)))
         if np.abs(mu) < np.pi/(2*L*D):
             f_hats_copy[0,:] *= 0.
         matrix_dict = {}
@@ -34,12 +34,12 @@ def FFHM(L, D, f_hats, extras=False):
             for j in range(1, mid+1):
                 mat += f_hats_copy[i,mid+j] * np.eye(N,k=j,dtype=np.complex_) \
                        + f_hats_copy[i,mid-j] * np.eye(N,k=-j,dtype=np.complex_)
-            print('for coefficient of degree ' + str(M-i-1) + ', adding ' + str(mat) + ' to matrix_dict')
+            #print('for coefficient of degree ' + str(M-i-1) + ', adding ' + str(mat) + ' to matrix_dict')
             matrix_dict.update({i: mat})
         matrix_dict = {key: augment_cols(value, M-key-1) for key, value in matrix_dict.items()}
         new_eigs = np.linalg.eigvals(sum(matrix_dict.values()))
         eigs = np.append(eigs, new_eigs)
-        print('')
+        #print('')
         if extras:
             mu_vals = np.append(mu_vals, [mu for eig in new_eigs])
 

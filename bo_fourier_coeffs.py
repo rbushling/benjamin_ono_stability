@@ -26,7 +26,7 @@ def bo_fourier_coeffs(a, k, c, N):
     constant_term = coeff + 0.5*(np.sqrt(c**2 - 4*a) + c)
     body = (np.sqrt(1 - alpha**2) - 1) / alpha
     result = np.array([coeff * body**n for n in range(1,N+1)])
-    return np.concatenate((np.flip(np.concatenate((np.array([constant_term]), result))), result))
+    return -np.concatenate((np.flip(np.concatenate((np.array([constant_term]), result))), result))
 
 def bo_deriv_fourier_coeffs(a, k, c, N):
     result = bo_fourier_coeffs(a, k, c, N)
