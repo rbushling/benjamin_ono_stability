@@ -10,7 +10,6 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{decorations.markings}
 %\mathtoolsset{showonlyrefs}
-\usepackage{autonum}
 
 %opening
 \title{Benjamin-Ono stability}
@@ -23,6 +22,8 @@ Seattle, WA 98195, USA}
 \begin{document}
 
 \maketitle
+
+\section{Check the solution}
 
 We consider the Benjamin-Ono equation
 \begin{align}
@@ -44,7 +45,7 @@ Letting
 Letting $(z,\tau) = (x-ct, t)$, so that $z$ is in the traveling frame,
 \eqref{eqn:BO} becomes
 \begin{align}
-  u_\tau - cu_z + \cH u_{zz} + (u^2)_z &=0.
+  u_\tau - cu_z + \cH u_{zz} + (u^2)_z &=0.\label{eqn:BOtravel}
 \end{align}
 We look for stationary solutions in this traveling frame
 \begin{align}
@@ -56,6 +57,7 @@ is \cite{bronski2016modulational} given by
   u(z; a, k, c) &=
   -\frac{\frac{k^2}{\sqrt{c^2-4a-k^2}}}{\sqrt{\frac{c^2-4a}{c^2-4a-k^2}} -
   \cos(kz)} - \frac12 \lt(\sqrt{c^2-4a}+c\rt),
+  \label{eqn:BOsoln}
 \end{align}
 where $c<0$ and $k^2<c^2-4a$.  We now verify that this is indeed a solution. We
 first note that \cite{ono1975}
@@ -115,6 +117,54 @@ than ours), so that
 \begin{align}
   \cF[ \cH[u]](\omega) &= i\sign(\omega) \cF[u](\omega).
 \end{align}
+\textbf{But Wikipedia blows!} Simon says that with this definition of the
+Hilbert, transform, 
+\begin{align}
+  \cF[ \cH[u]](\omega) &= -i\sign(\omega)\cF[u](\omega),
+\end{align}
+which agrees with the plotting sort of checks that Ryan has completed.
+
+\section{Constant solution}
+We can find the spectrum for the constant solution analytically, so let's do
+that as a check for the numerics.
+
+With $k=0$, \eqref{eqn:BOsoln} becomes
+\begin{align}
+  u(z; a,0,c) = -\frac12 (\sqrt{c^2-4a}+c) =: A.
+\end{align}
+We linearize about this solution by letting $u(z,\tau)= A + v(z,\tau)$ where
+$\abs{v}\ll1$. Plugging into \eqref{eqn:BOtravel} and retaining terms of order
+$v$ and lower yields
+\begin{align}
+  0 &= v_\tau -c v_z + \cH v_{zz} + \partial_z(A+v)^2\\
+  &= v_\tau -cv_z + \cH v_{zz} + 2A v_z.
+\end{align}
+Since the equation is autonomous first-order in $t$ we let $v(z,\tau) = e^{\lam
+\tau}w(z)$ which yields
+\begin{align}
+  \lam w &= c w_z -\cH w_{zz} - 2 A w_z.
+\end{align}
+Letting
+\begin{align}
+  w(z) &= \sum_{n\in \Z} \hat w_n e^{2\pi i n z/L},
+\end{align}
+(and thereby enforcing the period of our solutions to be $L$) yields
+\begin{align}
+  \lam \hat w_n &= (2 \pi i n c/L)\hat w_n- (-i\sign(2\pi n/L))(-(2\pi n/L)^2)
+  \hat w_n - 2(2\pi i n/L)A \hat w_n\\ 
+  \Rightarrow \qquad \lam &= \frac{2\pi i n}{L}\lt( c -  \frac{2 \pi
+  n}{L}\sign(n) - 2 A\rt)\\
+  &= \frac{2\pi i n}{L}\lt( 2c + \sqrt{c^2-4a} - \frac{2\pi n}{L}\sign(n)\rt).
+\end{align}
+Since we have symmetric $n$, the largest imaginary eigenvalue occurs when $n<0$:
+\begin{align}
+  \lam_{n<0} &= \frac{2 \pi i n}{L}\lt(2c + \sqrt{c^2-4a} + \frac{2\pi
+  n}{L}\rt).
+\end{align}
+
+
+
+
 
 
 {\footnotesize
