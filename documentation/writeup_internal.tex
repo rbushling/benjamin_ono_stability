@@ -142,24 +142,49 @@ $v$ and lower yields
 Since the equation is autonomous first-order in $t$ we let $v(z,\tau) = e^{\lam
 \tau}w(z)$ which yields
 \begin{align}
-  \lam w &= c w_z -\cH w_{zz} - 2 A w_z.
+  \lam w &= c w_z -\cH w_{zz} - 2 A w_z.\label{eqn:constantSolnStabilityODE}
 \end{align}
-Letting
+Since the coefficients of the above ODE are periodic (since they are constant)
+with period $L$, we use a Floquet decomposition,
 \begin{align}
-  w(z) &= \sum_{n\in \Z} \hat w_n e^{2\pi i n z/L},
+  w(z) &= e^{i\mu z}\hat w(z) ,
 \end{align}
-(and thereby enforcing the period of our solutions to be $L$) yields
+where $\mu \in [-\pi/L, \pi/L)$ and $\hat w(z+L) = \hat w(z)$. We then use an
+  $L$-periodic Fourier series for $\hat w(z)$:
 \begin{align}
-  \lam \hat w_n &= (2 \pi i n c/L)\hat w_n- (-i\sign(2\pi n/L))(-(2\pi n/L)^2)
-  \hat w_n - 2(2\pi i n/L)A \hat w_n\\ 
-  \Rightarrow \qquad \lam &= \frac{2\pi i n}{L}\lt( c -  \frac{2 \pi
-  n}{L}\sign(n) - 2 A\rt)\\
-  &= \frac{2\pi i n}{L}\lt( 2c + \sqrt{c^2-4a} - \frac{2\pi n}{L}\sign(n)\rt).
+  w(z) &= e^{i\mu z} \sum_{n\in \Z} \hat w_n e^{2\pi i n z/L} = \sum_{n\in
+  \Z}\hat w_n e^{(2\pi n/L + \mu)iz}.
 \end{align}
-Since we have symmetric $n$, the largest imaginary eigenvalue occurs when $n<0$:
+Plugging this into the ODE \eqref{eqn:constantSolnStabilityODE} yields
 \begin{align}
-  \lam_{n<0} &= \frac{2 \pi i n}{L}\lt(2c + \sqrt{c^2-4a} + \frac{2\pi
-  n}{L}\rt).
+  \lam_n &= ic \lt(\frac{2\pi n}{L} + \mu\rt) - \lt(-i\sign\lt(\frac{2\pi
+  n}{L}+\mu)\rt)\rt)\lt(i\lt(\frac{2\pi n}{L}+\mu\rt)\rt)^2 - 2iA \lt(\frac{2\pi
+  n}{L}+\mu\rt)\\
+  &= i\lt[ \lt(\frac{2\pi n}{L}+\mu\rt)(2c + \sqrt{c^2-4a}) - \sgn\lt(\frac{2\pi
+  n}{L}+\mu\rt)\lt(\frac{2\pi n}{L}+\mu\rt)^2\rt].
+\end{align}
+Note that
+\begin{align}
+  \mu + \frac{2\pi n}{L} \in \lt[\frac \pi L (2n-1), \frac \pi L(2n+1)\rt).
+\end{align}
+Also,
+\begin{align}
+  2c + \sqrt{c^2-4a}<0 \quad \Leftrightarrow \quad c^2 > -\frac43 a,
+\end{align}
+which is always satisfied for $a>0$. $\lam_n>0$ only if $2\pi n/L+\mu<0$, the
+expression becomes
+\begin{align}
+  \lam_{n<0} &= i \lt(\frac{2\pi n}{L}+\mu\rt)\lt[2c + \sqrt{c^2-4a} +
+  \frac{2\pi n}L + \mu\rt],
+\end{align}
+which is maximized when $2\pi n/L+\mu$ is minimized, or when 
+\begin{align}
+  \frac{2\pi n}{L}+\mu = \frac{\pi}{L}(1-2N),
+\end{align}
+where $N$ is the number of Fourier modes used for the truncation. Therefore
+\begin{align}
+  \lam_{max} &=  i \frac{\pi}{L}(1-2N)\lt[ 2c + \sqrt{c^2-4a} + \frac\pi
+  L(1-2N)\rt].
 \end{align}
 
 
