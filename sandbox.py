@@ -35,7 +35,7 @@ A = -0.5 * (np.sqrt(c**2 - 4*a) + c)
 g2_hats = np.zeros(2*N+1)
 g2_hats[N] = -1
 g1_hats = np.zeros(2*N+1)
-g1_hats[N] = -2 * A - c
+g1_hats[N] = -2 * A + c
 g0_hats = np.zeros(2*N+1)
 
 h2_hats = np.zeros(2*N+1)
