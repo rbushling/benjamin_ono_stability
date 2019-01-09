@@ -38,11 +38,20 @@ g1_hats = np.zeros(2*N+1)
 g1_hats[N] = -2 * A - c
 g0_hats = np.zeros(2*N+1)
 
+h2_hats = np.zeros(2*N+1)
+h2_hats[N] = -1
+h1_hats = np.zeros(2*N+1)
+h1_hats[N] = -c
+h0_hats = np.zeros(2*N+1)
+
 f_hats = np.array([f2_hats, f1_hats, f0_hats], dtype=np.complex_)
 eigs, mu_vals = hill.FFHM(2*np.pi/k, 100, f_hats, True)
 
 g_hats = np.array([g2_hats, g1_hats, g0_hats], dtype=np.complex_)
 g_eigs, g_mu_vals = hill.FFHM(1, 100, g_hats, True)
+
+h_hats = np.array([h2_hats, h1_hats, h0_hats], dtype=np.complex_)
+h_eigs, h_mu_vals = hill.FFHM(1, 100, h_hats, True)
 
 plt.figure(1)
 plt.xlim([-10,10])
@@ -83,13 +92,23 @@ plt.plot(X, [A for x in X], label='Benjamin-Ono constant solution')
 plt.legend()
 
 plt.figure(6)
-plt.xlim([-10,10])
+#plt.xlim([-10,10])
 plt.title('Constant Solution Spectrum: A = {}'.format(str(A)))
 plt.scatter(g_eigs.real, g_eigs.imag, color=(0.8,0.1,0.2), marker='.')
 
 plt.figure(7)
 plt.title('Constant Solution $Im(\lambda)$ vs. $\mu$: A = {}'.format(str(A)))
 plt.scatter(g_mu_vals, g_eigs.imag, color=(0.1,0.8,0.6), marker='.')
+plt.grid(True)
+
+plt.figure(8)
+#plt.xlim([-10,10])
+plt.title('Zero Solution Spectrum: c = {}'.format(str(c)))
+plt.scatter(h_eigs.real, h_eigs.imag, color=(0.8,0.1,0.2), marker='.')
+
+plt.figure(9)
+plt.title('Zero Solution $Im(\lambda)$ vs. $\mu$: c = {}'.format(str(c)))
+plt.scatter(h_mu_vals, h_eigs.imag, color=(0.1,0.8,0.6), marker='.')
 plt.grid(True)
 
 plt.show()
