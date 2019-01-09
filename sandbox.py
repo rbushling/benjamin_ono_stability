@@ -9,9 +9,9 @@ bo_four = importlib.import_module('bo_fourier_coeffs')
 # this equation! i.e., it assumed that the d_xx term involves the Hilbert transform
 hill = importlib.import_module('FFHM_bo_custom')
 
-a = 3.5
-k = 1.5
-c = -6.5
+a = 2.5
+k = 2.5
+c = -4.5
 X = np.linspace(-10, 10, 1000)
 Y = [bo.bo(z,a,k,c) for z in X]
 
@@ -26,12 +26,23 @@ UPrime = lambda z: bo.bo_deriv(z, a, k, c)
 
 f2_hats = np.zeros(2*N+1)
 f2_hats[N] = -1
-f1_hats = -2 * bo_four.bo_fourier_coeffs(a, k, c, N)
+f1_hats = -2 * bo_four.bo_fourier_coeffs(a, k, c, N)    # trying multiplying by -1
 f1_hats[N] -= c
-f0_hats = -2 * bo_four.bo_deriv_fourier_coeffs(a, k, c, N)
+f0_hats = -2 * bo_four.bo_deriv_fourier_coeffs(a, k, c, N) # trying multiplying by -1
+
+# Fourier coefficients for the constant solution case
+A = -0.5 * (np.sqrt(c**2 - 4*a) + c)
+g2_hats = np.zeros(2*N+1)
+g2_hats[N] = -1
+g1_hats = np.zeros(2*N+1)
+g1_hats[N] = -2 * A - c
+g0_hats = np.zeros(2*N+1)
 
 f_hats = np.array([f2_hats, f1_hats, f0_hats], dtype=np.complex_)
-eigs, mu_vals = hill.FFHM(2*np.pi/k, 250, f_hats, True)
+eigs, mu_vals = hill.FFHM(2*np.pi/k, 100, f_hats, True)
+
+g_hats = np.array([g2_hats, g1_hats, g0_hats], dtype=np.complex_)
+g_eigs, g_mu_vals = hill.FFHM(1, 100, g_hats, True)
 
 plt.figure(1)
 plt.xlim([-10,10])
@@ -64,5 +75,21 @@ plt.plot(X, [-beta*k*np.sin(k*z)/(alpha - beta*np.cos(k*z)) for z in X], label='
 plt.plot(X, [hilbert_crap(z) for z in X], label='a la Ryan')
 plt.legend(loc='upper right')
 plt.plot()
+
+plt.figure(5)
+plt.xlim([-10,10])
+plt.title('Benjamin-Ono Constant Solution: A = {}'.format(str(A)))
+plt.plot(X, [A for x in X], label='Benjamin-Ono constant solution')
+plt.legend()
+
+plt.figure(6)
+plt.xlim([-10,10])
+plt.title('Constant Solution Spectrum: A = {}'.format(str(A)))
+plt.scatter(g_eigs.real, g_eigs.imag, color=(0.8,0.1,0.2), marker='.')
+
+plt.figure(7)
+plt.title('Constant Solution $Im(\lambda)$ vs. $\mu$: A = {}'.format(str(A)))
+plt.scatter(g_mu_vals, g_eigs.imag, color=(0.1,0.8,0.6), marker='.')
+plt.grid(True)
 
 plt.show()

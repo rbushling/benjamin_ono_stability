@@ -8,7 +8,7 @@ def test_vars(a, k, c):
     k = np.float_(k)
     c = np.float_(c)
     try:
-        assert k > 0 and c < 0 and k**2 < c**2 - 4*a, 'Must have k > 0, c < 0, and k**2 < c**2 - 4a; ' + \
+        assert k > 0 and c < 0 and k**2 < c**2 - 4*a, 'Must have k > 0, c < 0, and k**2 < c**2 - 4*a; ' + \
                                         'you tried a = ' + str(a) + ', k = ' + str(k) + ', and c = ' + str(c)
     except AssertionError as error:
         print(error)
