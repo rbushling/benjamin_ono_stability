@@ -5,9 +5,6 @@ def FFHM(L, D, f_hats, extras=False):
     N = len(f_hats[0,:])
     M = 3
     mid = int((N-1)/2)
-    print('N = ' + str(N))
-    print('mid = ' + str(mid))
-    print('')
     mu_vals = []
 
     def frange(start, stop, step):
@@ -26,6 +23,7 @@ def FFHM(L, D, f_hats, extras=False):
         return matrix
 
     for mu in frange(-np.pi/L, np.pi/L, 2*np.pi/(L*D)):
+        print('beginning mu = {}'.format(str(np.round(mu,4))))
         f_hats_copy = np.array(f_hats, dtype=np.complex_)
         matrix_dict = {}
         for i in range(0, M):
@@ -40,13 +38,12 @@ def FFHM(L, D, f_hats, extras=False):
         eigs = np.append(eigs, new_eigs)
         if extras:
             mu_vals = np.append(mu_vals, [mu for eig in new_eigs])
-        print('mu = ' + str(np.round(mu,4)))
-        for key, value in matrix_dict.items():
-            print(str(key) + '-derivative matrix:')
-            print(np.round(value,3))
-            print('')
+        # if np.amax(abs(np.real(new_eigs))) > 0.001:
+        #     print('SPURIOUS EIGENVALUE FOUND')
+        #     print('BREAKING at mu = {}'.format(str(np.round(mu,4))))
+        #     return [eigs, mu_vals]
+        print('completed mu = {}'.format(str(np.round(mu,4))))
         print('')
-
 
     if extras:
         return [eigs, mu_vals]
