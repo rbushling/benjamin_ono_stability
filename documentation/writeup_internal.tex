@@ -47,7 +47,7 @@ is \cite{bronski2016modulational} given by
 \begin{align}
   u(z; a, k, c) &=
   -\frac{\frac{k^2}{\sqrt{c^2-4a-k^2}}}{\sqrt{\frac{c^2-4a}{c^2-4a-k^2}} -
-  \cos(kz)} - \frac12 \lt(\sqrt{c^2-4a}+c\rt),
+  \cos(kz)} + \frac12 \lt(\sqrt{c^2-4a}+c\rt),
   \label{eqn:BOsoln}
 \end{align}
 where $c<0$ and $k^2<c^2-4a$.  We now verify that this is indeed a solution. We
@@ -121,7 +121,7 @@ that as a check for the numerics.
 
 With $k=0$, \eqref{eqn:BOsoln} becomes
 \begin{align}
-  u(z; a,0,c) = -\frac12 (\sqrt{c^2-4a}+c) =: A.
+  u(z; a,0,c) = \frac12 (\sqrt{c^2-4a}+c) =: A.
 \end{align}
 We linearize about this solution by letting $u(z,\tau)= A + v(z,\tau)$ where
 $\abs{v}\ll1$. Plugging into \eqref{eqn:BOtravel} and retaining terms of order
@@ -151,22 +151,17 @@ Plugging this into the ODE \eqref{eqn:constantSolnStabilityODE} yields
   \lam_n &= ic \lt(\frac{2\pi n}{L} + \mu\rt) - \lt(-i\sign\lt(\frac{2\pi
   n}{L}+\mu)\rt)\rt)\lt(i\lt(\frac{2\pi n}{L}+\mu\rt)\rt)^2 - 2iA \lt(\frac{2\pi
   n}{L}+\mu\rt)\\
-  &= i\lt[ \lt(\frac{2\pi n}{L}+\mu\rt)(2c + \sqrt{c^2-4a}) - \sgn\lt(\frac{2\pi
+  &= i\lt[ -\lt(\frac{2\pi n}{L}+\mu\rt)\sqrt{c^2-4a} - \sgn\lt(\frac{2\pi
   n}{L}+\mu\rt)\lt(\frac{2\pi n}{L}+\mu\rt)^2\rt].
 \end{align}
 Note that
 \begin{align}
   \mu + \frac{2\pi n}{L} \in \lt[\frac \pi L (2n-1), \frac \pi L(2n+1)\rt).
 \end{align}
-Also,
+$\lam_n>0$ only if $2\pi n/L+\mu<0$, the expression becomes
 \begin{align}
-  2c + \sqrt{c^2-4a}<0 \quad \Leftrightarrow \quad c^2 > -\frac43 a,
-\end{align}
-which is always satisfied for $a>0$. $\lam_n>0$ only if $2\pi n/L+\mu<0$, the
-expression becomes
-\begin{align}
-  \lam_{n<0} &= i \lt(\frac{2\pi n}{L}+\mu\rt)\lt[2c + \sqrt{c^2-4a} +
-  \frac{2\pi n}L + \mu\rt],
+  \lam_{n<0} &= -i \lt[\lt(\frac{2\pi n}{L}+\mu\rt)\sqrt{c^2-4a} -
+  \lt(\frac{2\pi n}L + \mu\rt)^2\rt],
 \end{align}
 which is maximized when $2\pi n/L+\mu$ is minimized, or when 
 \begin{align}
@@ -174,7 +169,7 @@ which is maximized when $2\pi n/L+\mu$ is minimized, or when
 \end{align}
 where $N$ is the number of Fourier modes used for the truncation. Therefore
 \begin{align}
-  \lam_{max} &=  -i \frac{\pi}{L}(1+2N)\lt[ 2c + \sqrt{c^2-4a} - \frac\pi
+  \lam_{max} &=  i \frac{\pi}{L}(1+2N)\lt[ \sqrt{c^2-4a} + \frac\pi
   L(1+2N)\rt].
 \end{align}
 
