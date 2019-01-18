@@ -33,15 +33,6 @@ where
 \begin{align}
   \cH \lt[f(\xi)\rt](x) &= \frac1\pi \int \frac{f(\xi)}{\xi - x}~\d \xi.
 \end{align}
-Letting 
-\begin{align}
-  u &= \alpha \hat u, \qquad \hat x = \beta x, \qquad \hat t = \gamma t,
-\end{align}
-\eqref{eqn:BO} becomes
-\begin{align}
-  \gamma \hat u_{\hat t} + \beta^2 \cH [\hat u_{\hat x \hat x}] + \alpha \beta
-  (\hat u^2)_{\hat x} &= 0.
-\end{align}
 Letting $(z,\tau) = (x-ct, t)$, so that $z$ is in the traveling frame,
 \eqref{eqn:BO} becomes
 \begin{align}
@@ -56,7 +47,7 @@ is \cite{bronski2016modulational} given by
 \begin{align}
   u(z; a, k, c) &=
   -\frac{\frac{k^2}{\sqrt{c^2-4a-k^2}}}{\sqrt{\frac{c^2-4a}{c^2-4a-k^2}} -
-  \cos(kz)} - \frac12 \lt(\sqrt{c^2-4a}+c\rt),
+  \cos(kz)} + \frac12 \lt(\sqrt{c^2-4a}+c\rt),
   \label{eqn:BOsoln}
 \end{align}
 where $c<0$ and $k^2<c^2-4a$.  We now verify that this is indeed a solution. We
@@ -74,7 +65,7 @@ and our solution may be rewritten
    \frac{1}{ 1 - \sqrt{\frac{c^2-4a-k^2}{c^2-4a}}\cos(kz)} + \frac12
    \lt(\sqrt{c^2-4a}+c\rt)\\
    &= -\frac{k^2}{\alpha}\frac{1}{1-\frac{\beta}{\alpha}\cos(kz)} + \frac12(\alpha + c)\\
-   &= -\frac{k^2}{\alpha}\frac{1}{1-B \cos (k\zeta)} + \frac12( \alpha + c).
+   &= -\frac{k^2}{\alpha}\frac{1}{1-B \cos (k z)} + \frac12( \alpha + c).
    \label{eqn:soln}
 \end{align}
 We then note that
@@ -130,7 +121,7 @@ that as a check for the numerics.
 
 With $k=0$, \eqref{eqn:BOsoln} becomes
 \begin{align}
-  u(z; a,0,c) = -\frac12 (\sqrt{c^2-4a}+c) =: A.
+  u(z; a,0,c) = \frac12 (\sqrt{c^2-4a}+c) =: A.
 \end{align}
 We linearize about this solution by letting $u(z,\tau)= A + v(z,\tau)$ where
 $\abs{v}\ll1$. Plugging into \eqref{eqn:BOtravel} and retaining terms of order
@@ -160,22 +151,17 @@ Plugging this into the ODE \eqref{eqn:constantSolnStabilityODE} yields
   \lam_n &= ic \lt(\frac{2\pi n}{L} + \mu\rt) - \lt(-i\sign\lt(\frac{2\pi
   n}{L}+\mu)\rt)\rt)\lt(i\lt(\frac{2\pi n}{L}+\mu\rt)\rt)^2 - 2iA \lt(\frac{2\pi
   n}{L}+\mu\rt)\\
-  &= i\lt[ \lt(\frac{2\pi n}{L}+\mu\rt)(2c + \sqrt{c^2-4a}) - \sgn\lt(\frac{2\pi
+  &= i\lt[ -\lt(\frac{2\pi n}{L}+\mu\rt)\sqrt{c^2-4a} - \sgn\lt(\frac{2\pi
   n}{L}+\mu\rt)\lt(\frac{2\pi n}{L}+\mu\rt)^2\rt].
 \end{align}
 Note that
 \begin{align}
   \mu + \frac{2\pi n}{L} \in \lt[\frac \pi L (2n-1), \frac \pi L(2n+1)\rt).
 \end{align}
-Also,
+$\lam_n>0$ only if $2\pi n/L+\mu<0$, the expression becomes
 \begin{align}
-  2c + \sqrt{c^2-4a}<0 \quad \Leftrightarrow \quad c^2 > -\frac43 a,
-\end{align}
-which is always satisfied for $a>0$. $\lam_n>0$ only if $2\pi n/L+\mu<0$, the
-expression becomes
-\begin{align}
-  \lam_{n<0} &= i \lt(\frac{2\pi n}{L}+\mu\rt)\lt[2c + \sqrt{c^2-4a} +
-  \frac{2\pi n}L + \mu\rt],
+  \lam_{n<0} &= -i \lt[\lt(\frac{2\pi n}{L}+\mu\rt)\sqrt{c^2-4a} -
+  \lt(\frac{2\pi n}L + \mu\rt)^2\rt],
 \end{align}
 which is maximized when $2\pi n/L+\mu$ is minimized, or when 
 \begin{align}
@@ -183,7 +169,7 @@ which is maximized when $2\pi n/L+\mu$ is minimized, or when
 \end{align}
 where $N$ is the number of Fourier modes used for the truncation. Therefore
 \begin{align}
-  \lam_{max} &=  -i \frac{\pi}{L}(1+2N)\lt[ 2c + \sqrt{c^2-4a} - \frac\pi
+  \lam_{max} &=  i \frac{\pi}{L}(1+2N)\lt[ \sqrt{c^2-4a} + \frac\pi
   L(1+2N)\rt].
 \end{align}
 
@@ -192,9 +178,49 @@ where $N$ is the number of Fourier modes used for the truncation. Therefore
 
 
 
+
+
+\section{Fixing the period}
+Letting 
+\begin{align}
+  u &= \epsilon \hat u, \qquad \hat z = \beta z, \qquad \hat \tau = \gamma \tau, \qquad
+  c = \delta \hat c
+\end{align}
+\eqref{eqn:BOtravel} becomes
+\begin{align}
+  0 &= \gamma \hat u_{\hat \tau} - \delta \beta \hat c \hat u_{\hat z}+ \beta^2
+  \cH [\hat u_{\hat z \hat z}] + \epsilon \beta (\hat u^2)_{\hat z}\\
+  \Rightarrow 0 &= \hat u_{\hat \tau} - \frac{\delta \beta}\gamma \hat c \hat
+  u_{\hat z} + \frac{\beta^2}{\gamma} \cH [\hat u_{\hat z \hat z}] +
+  \frac{\epsilon \beta}{\gamma} (\hat u^2)_{\hat z}.
+\end{align}
+In order for this to match \eqref{eqn:BOtravel} in the traveling frame,
+\begin{align}
+  u = \beta \hat u, \qquad \hat z = \beta z,\qquad  \hat \tau = \beta^2 t,\qquad  c = \beta \hat c.
+\end{align}
+Since we want $kz = \hat z$, we take $\beta = k$. Therefore,
+\begin{align}
+  u = k \hat u,\qquad  \hat z = k z, \qquad \hat \tau = k^2 t, \qquad c = k \hat c,
+\end{align}
+and
+\begin{align}
+  \hat u_{\hat \tau} - \hat c \hat u_{\hat z} + \cH \hat u_{\hat z \hat z} +
+  (\hat u^2)_{\hat z} &=0.\label{eqn:BOtravelScaleFree}
+\end{align}
+The solution \eqref{eqn:soln} becomes
+\begin{align}
+  \hat u &= -\frac{k}{\hat \alpha} \frac{1}{1 - \hat B \cos(\hat z)} + \frac12(\hat
+  \alpha + k \hat c),
+\end{align}
+where
+\begin{align}
+  \hat \alpha = \sqrt{ k^2 \hat c^2 - 4a}, \qquad \hat B = \sqrt{\frac{ k^2 \hat
+  c^2 -4a - k^2}{k^2 \hat c^2 -4a}}.
+\end{align}
+The mathematica notebook ``BronskiAndHurChecks-2.nb'' verifies this solution.
+
+
 {\footnotesize
 \bibliographystyle{siam}
 \bibliography{mybib}}
-
-
 \end{document}

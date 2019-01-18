@@ -34,7 +34,7 @@ f1_hats[2*N] -= c
 f0_hats = -2 * bo_four.bo_deriv_fourier_coeffs(a, k, c, 2*N)
 
 # Fourier coefficients for the constant solution case
-# A = -0.5 * (np.sqrt(c**2 - 4*a) + c)
+# A = 0.5 * (np.sqrt(c**2 - 4*a) + c)
 # g2_hats = np.zeros(2*N+1)
 # g2_hats[N] = -1
 # g1_hats = np.zeros(2*N+1)
