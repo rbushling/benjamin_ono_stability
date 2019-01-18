@@ -15,7 +15,7 @@ c = -4.5
 X = np.linspace(-10, 10, 1000)
 Y = [bo.bo(z,a,k,c) for z in X]
 
-N = 50
+N = 25
 fourier_series = bo_four.bo_fourier_coeffs(a, k, c, N)
 fs_deriv = bo_four.bo_deriv_fourier_coeffs(a, k, c, N)
 series_soln = lambda z: sum(fourier_series[N+n] * np.exp(1j*k*n*z) for n in range(-N,N+1))
@@ -27,11 +27,11 @@ for mode in fourier_series:
 U = lambda z: bo.bo(z, a, k, c)
 UPrime = lambda z: bo.bo_deriv(z, a, k, c)
 
-f2_hats = np.zeros(2*N+1)
-f2_hats[N] = -1
-f1_hats = -2 * bo_four.bo_fourier_coeffs(a, k, c, N)
-f1_hats[N] -= c
-f0_hats = -2 * bo_four.bo_deriv_fourier_coeffs(a, k, c, N)
+f2_hats = np.zeros(4*N+1)
+f2_hats[2*N] = -1
+f1_hats = -2 * bo_four.bo_fourier_coeffs(a, k, c, 2*N)
+f1_hats[2*N] -= c
+f0_hats = -2 * bo_four.bo_deriv_fourier_coeffs(a, k, c, 2*N)
 
 # Fourier coefficients for the constant solution case
 # A = -0.5 * (np.sqrt(c**2 - 4*a) + c)
@@ -49,7 +49,9 @@ f0_hats = -2 * bo_four.bo_deriv_fourier_coeffs(a, k, c, N)
 # h0_hats = np.zeros(2*N+1)
 
 f_hats = np.array([f2_hats, f1_hats, f0_hats], dtype=np.complex_)
-eigs, mu_vals = hill.FFHM(2*np.pi/k, 3840, f_hats, True)
+eigs, mu_vals = hill.FFHM(2*np.pi/k, 5000, f_hats, True)
+
+print(f_hats)
 
 # g_hats = np.array([g2_hats, g1_hats, g0_hats], dtype=np.complex_)
 # g_eigs, g_mu_vals = hill.FFHM(1, 3840, g_hats, True)
@@ -58,7 +60,7 @@ eigs, mu_vals = hill.FFHM(2*np.pi/k, 3840, f_hats, True)
 #h_eigs, h_mu_vals = hill.FFHM(1, 100, h_hats, True)
 
 plt.figure(1)
-plt.xlim([-10,10])
+#plt.xlim([-10,10])
 plt.title('Benjamin-Ono Solution and Derivative: a = {}, k = {}, c = {}'.format(str(a), str(k), str(c)))
 plt.plot(X, Y, label='Benjamin-Ono solution (analytic)')
 plt.plot(X, [series_soln(z) for z in X], label='Benjamin-Ono solution (Fourier)')
@@ -67,10 +69,14 @@ plt.plot(X,[series_deriv(z) for z in X], label='Solution derivative (Fourier)')
 plt.legend()
 
 plt.figure(2)
+#plt.xlim([-100,100])
+#plt.ylim([-1.e10,1.e10])
 plt.title('Benjamin-Ono Stability Spectrum: a = {}, k = {}, c = {}'.format(str(a), str(k), str(c)))
 plt.scatter(eigs.real, eigs.imag, color='steelblue', marker='.')
 
 plt.figure(3)
+#plt.xlim([-100,100])
+#plt.ylim([-50,50])
 plt.title('Benjamin-Ono $Im(\lambda)$ vs. $\mu$: a = {}, k = {}, c = {}'.format(str(a), str(k), str(c)))
 plt.scatter(mu_vals, eigs.imag, color='mediumpurple', marker='.')
 plt.grid(True)
