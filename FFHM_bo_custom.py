@@ -36,11 +36,11 @@ def FFHM(L, D, f_hats, extras=False):
         exponent = int(exponent)
         for col in range(0, 2*N+1):
             factor = mu + 2*np.pi*(col-N)/L
-            matrix[:, col] *= (1j * factor) ** exponent
+            matrix[:, col] *= (1j * np.round(factor,10)) ** exponent
             # because exponent = 2 signals the D_xx(H(v)) operator, we also mustiply each column
             # by the Fourier symbol for the Hilbert transform in this special case
             if exponent == 2:
-                matrix[:, col] *= -1j * np.sign(np.round(factor,12))
+                matrix[:, col] *= -1j * np.sign(np.round(factor,10))
         return matrix
 
     # begin by computing all the 'unaugmented' matrices beforehand; we then go back and augment a copy
